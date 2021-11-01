@@ -1,0 +1,11 @@
+{
+	"name": "UniversalSequence-Editor",
+    "rootNamespace": "",
+    "references": [
+        "UniversalSequence"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": []
+}

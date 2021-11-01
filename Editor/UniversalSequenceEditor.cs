@@ -1,5 +1,4 @@
-﻿#if UNITY_EDITOR
-using System;
+﻿using System;
 using System.Linq;
 using UnityEditor;
 using UnityEditorInternal;
@@ -128,4 +127,3 @@ namespace UnSec
         }
     }
 }
-#endif
