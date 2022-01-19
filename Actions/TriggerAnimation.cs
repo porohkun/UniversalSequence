@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace UnSec
 {
-    [SequenceActionInfo("Trigger Animation", "Trigger Animation")]
+    [SequenceActionInfo("Trigger animation", "Trigger Animation")]
     public class TriggerAnimation : SequenceAction
     {
         [SerializeField] private Animator _target;

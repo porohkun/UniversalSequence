@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace UnSec
 {
-    [SequenceActionInfo("Wait For Message", "Wait For Message")]
+    [SequenceActionInfo("Wait for message", "Wait For Message")]
     public class WaitForMessage : SequenceAction
     {
         [SerializeField] private MessageReceiver _target;

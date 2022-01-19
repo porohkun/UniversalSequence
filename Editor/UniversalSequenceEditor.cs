@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEditor;
 using UnityEditorInternal;
@@ -18,6 +19,8 @@ namespace UnSec
         private UnityEngine.Object _selectedAction;
         private Editor _selectedActionEditor;
         private UniversalSequence _sequence;
+
+        private Dictionary<Type, SequenceActionInfoAttribute> _actionMetadata = new Dictionary<Type, SequenceActionInfoAttribute>();
 
         HideFlags _hideMode => _showActionsInGameObjectProperty.boolValue ? HideFlags.None : HideFlags.HideInInspector;
 
@@ -59,11 +62,32 @@ namespace UnSec
             if (level.objectReferenceValue != null)
             {
                 var action = level.objectReferenceValue as SequenceAction;
-                content = $"{action.GetType().Name} | {action.ListDescription}";
+                content = $"{ActionMeta(action).ActionName} | {action.ListDescription}";
                 if (action == _sequence.CurrentAction)
                     content = $"> {content}";
             }
             EditorGUI.LabelField(new Rect(rect.x, rect.y, rect.width, rect.height), content);
+        }
+
+        private SequenceActionInfoAttribute ActionMeta(SequenceAction action)
+        {
+            return ActionMeta(action.GetType());
+        }
+
+        private SequenceActionInfoAttribute ActionMeta(Type type)
+        {
+            if (_actionMetadata.TryGetValue(type, out var meta))
+                return meta;
+
+            var attributes = type.GetCustomAttributes(typeof(SequenceActionInfoAttribute), true);
+            if (attributes.Length > 0)
+            {
+                var attribute = (SequenceActionInfoAttribute)attributes[0];
+                _actionMetadata[type] = attribute;
+                return attribute;
+            }
+
+            return new SequenceActionInfoAttribute(type.Name, "");
         }
 
         private void SelectActionCallback(ReorderableList list)
@@ -120,7 +144,7 @@ namespace UnSec
                     action.hideFlags = _hideMode;
             }
             _actionList.DoLayoutList();
-
+            EditorGUILayout.HelpBox(ActionMeta(_selectedAction.GetType()).HelpText, MessageType.Info, true);
             _selectedActionEditor?.OnInspectorGUI();
 
             serializedObject.ApplyModifiedProperties();

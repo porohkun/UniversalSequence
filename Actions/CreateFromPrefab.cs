@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace UnSec
 {
-    [SequenceActionInfo("Create From Prefab", "Create From Prefab")]
+    [SequenceActionInfo("Create from prefab", "Create From Prefab")]
     public class CreateFromPrefab : SequenceAction
     {
         [SerializeField] private Transform _target;
