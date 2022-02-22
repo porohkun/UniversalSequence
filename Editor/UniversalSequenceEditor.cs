@@ -144,7 +144,8 @@ namespace UnSec
                     action.hideFlags = _hideMode;
             }
             _actionList.DoLayoutList();
-            EditorGUILayout.HelpBox(ActionMeta(_selectedAction.GetType()).HelpText, MessageType.Info, true);
+            if (_selectedAction != null)
+                EditorGUILayout.HelpBox(ActionMeta(_selectedAction.GetType()).HelpText, MessageType.Info, true);
             _selectedActionEditor?.OnInspectorGUI();
 
             serializedObject.ApplyModifiedProperties();
