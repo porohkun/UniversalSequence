@@ -1,7 +1,7 @@
 {
   "name": "universal_sequence",
   "displayName": "UniversalSequence",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "unity": "2019.1",
   "description": "Universal inspector sequences for any purpose",
   "keywords": [
